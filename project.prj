@@ -29,5 +29,6 @@
 <project>
   <startup-script>./x.py build packages</startup-script>
   <search-path>packages</search-path>
+  <search-path>core/packages</search-path>
   <search-path>core/example</search-path>
 </project>
