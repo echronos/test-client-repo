@@ -14,10 +14,7 @@ Follow these steps:
 
 0. Run the command `git submodule init`.
 
-0. Replace `breakaway_ci` with your own user name in the file `.git/config`.
-   This file contains the URL of the RTOS repository, but you need to configure your own user name to successfully log in to the  RTOS core git server.
-   You require a personal, dedicated account on that git server.
-   If unsure, please contact the administrators of the git server.
+0. Optional: if you want to access the core submodule as your own github user instead of through anonymous https, set the url in `.git/config` to `git@github.com:echronos/echronos.git`.
 
 0. Run the command `git submodule update`.
 
