@@ -40,6 +40,8 @@ environment:
         # Therefore, the project also does not have to support it.
         # However, we still test against this version to learn when we break Python 3.3 support.
         - PYVER: 3.3
+install:
+    - git submodule update --init --recursive
 build_script: core\test_setup.bat
 test_script: core\test.bat
 artifacts:
