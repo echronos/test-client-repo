@@ -16,7 +16,8 @@ initialize_core ()
 list_branches ()
 {
     local DIR="${1:-.}"
-    git -C "${DIR}" branch -r | sed -n -r '/origin\/.*\// ! { s/.*origin\///; p }' | grep -v '^master$'
+    git -C "${DIR}" branch -r --no-merge origin/development | sed -n -r '/origin\/.*\// ! { s/.*origin\///; p }' | grep -v '^master$'
+    echo "development"
 }
 
 list_core_branches_and_rev_ids ()
