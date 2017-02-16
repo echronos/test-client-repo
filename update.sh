@@ -11,10 +11,10 @@ if [ -e ~/.ssh/id_rsa_echronos_ci ]; then
     ssh-add ~/.ssh/id_rsa_echronos_ci
 fi
 
-# update to latest version of master branch to ensure that we run the latest version of the main update functionality
-git fetch origin master
-git checkout --force master
-git reset --hard origin/master
+# update to latest version of main branch to ensure that we run the latest version of the main update functionality
+git fetch origin main
+git checkout --force main
+git reset --hard origin/main
 
 # run main update functionality
 sh ./update_2nd_stage.sh

@@ -16,8 +16,8 @@ initialize_core ()
 list_branches ()
 {
     local DIR="${1:-.}"
-    git -C "${DIR}" branch -r --no-merge origin/development | sed -n -r '/origin\/.*\// ! { s/.*origin\///; p }' | grep -v '^master$'
-    echo "development"
+    git -C "${DIR}" branch -r --no-merge origin/master | sed -n -r '/origin\/.*\// ! { s/.*origin\///; p }' | grep -v '^main$'
+    echo "master"
 }
 
 list_core_branches_and_rev_ids ()
@@ -30,12 +30,12 @@ branch_exists ()
     git show-ref --quiet "${1}"
 }
 
-branch_is_uptodate_with_master ()
+branch_is_uptodate_with_main ()
 {
-    local BRANCH MASTER_REVID
+    local BRANCH MAIN_REVID
     BRANCH="${1}"
-    MASTER_REVID="${2}"
-    git merge-base --is-ancestor ${MASTER_REVID} "${BRANCH}"
+    MAIN_REVID="${2}"
+    git merge-base --is-ancestor ${MAIN_REVID} "${BRANCH}"
 }
 
 branch_is_uptodate_with_core ()
@@ -55,11 +55,11 @@ branch_is_uptodate_with_origin ()
 
 update_branch ()
 {
-    local BRANCH REVID MASTER_REVID
+    local BRANCH REVID MAIN_REVID
 
     BRANCH="${1}"
     REVID="${2}"
-    MASTER_REVID="${3}"
+    MAIN_REVID="${3}"
 
     echo ""
     echo "Updating branch $BRANCH to revision $REVID"
@@ -68,14 +68,14 @@ update_branch ()
     if branch_exists "origin/${BRANCH}"; then
         git checkout --quiet "${BRANCH}"
         git reset --quiet --hard origin/"${BRANCH}"
-        if ! branch_is_uptodate_with_master "${BRANCH}" "${MASTER_REVID}"; then
-            git merge --quiet --no-edit origin/master
+        if ! branch_is_uptodate_with_main "${BRANCH}" "${MAIN_REVID}"; then
+            git merge --quiet --no-edit origin/main
         fi
     else
         if branch_exists "${BRANCH}"; then
             git branch --quiet -D "${BRANCH}"
         fi
-        git checkout --quiet -b "${BRANCH}" origin/master
+        git checkout --quiet -b "${BRANCH}" origin/main
         git push --quiet -u origin "${BRANCH}":"${BRANCH}"
     fi
 
@@ -89,12 +89,12 @@ update_branch ()
 }
 
 git fetch --quiet --all --prune --recurse-submodules=yes
-MASTER_REVID="$(git show-ref -s origin/master)"
+MAIN_REVID="$(git show-ref -s origin/main)"
 
 initialize_core
 
 list_core_branches_and_rev_ids | while read BRANCH REVID; do
-    update_branch "${BRANCH}" "${REVID}" "${MASTER_REVID}"
+    update_branch "${BRANCH}" "${REVID}" "${MAIN_REVID}"
 done
 git push --quiet --all origin
 
