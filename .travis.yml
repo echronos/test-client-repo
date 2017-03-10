@@ -30,7 +30,13 @@ dist: trusty # makes Ubuntu trusty available, required for Python >= 3.3
 cache:
   directories:
   - ${HOME}/local/bin
+# build matrix across multiple Python version to parallelize builds with different Python versions
+env:
+  - PY_VER=3.3
+  - PY_VER=3.4
+  - PY_VER=3.5
+  - PY_VER=3.6
 
 install: sh ./core/test_setup.sh
 
-script: sh ./core/test.sh -c core
+script: sh ./core/test.sh -c core -p ${PY_VER}
