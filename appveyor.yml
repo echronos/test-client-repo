@@ -34,12 +34,13 @@ environment:
     PATH: C:\msys64\mingw64\bin;%PATH%;C:\Program Files\Git\cmd
     COREDIR: core
     matrix:
-        - PYVER: 3.5
-        - PYVER: 3.4
-        # Python 3.3 is no longer officially supported.
-        # Therefore, the project also does not have to support it.
-        # However, we still test against this version to learn when we break Python 3.3 support.
-        - PYVER: 3.3
+        - PYTHON: "C:\\Python36-x64\\python"
+        - PYTHON: "C:\\Python35-x64\\python"
+        # Python 3.4 and 3.4 are no longer officially supported.
+        # Therefore, the project also does not have to support them.
+        # However, we still test against those versions to learn when we break support for them.
+        - PYTHON: "C:\\Python34-x64\\python"
+        - PYTHON: "C:\\Python33-x64\\python"
 install:
     - git submodule update --init --recursive
 build_script: core\test_setup.bat
