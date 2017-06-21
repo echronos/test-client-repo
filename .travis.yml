@@ -25,14 +25,13 @@
 # @TAG(NICTA_AGPL)
 #
 language: c # makes gnu build utils available
-sudo: required # makes Ubuntu trusty available, required for Python >= 3.3
-dist: trusty # makes Ubuntu trusty available, required for Python >= 3.3
+sudo: required # makes Ubuntu trusty available, required for Python >= 3.4
+dist: trusty # makes Ubuntu trusty available, required for Python >= 3.4
 cache:
   directories:
   - ${HOME}/local/bin
 # build matrix across multiple Python version to parallelize builds with different Python versions
 env:
-  - PY_VER=3.3
   - PY_VER=3.4
   - PY_VER=3.5
   - PY_VER=3.6
